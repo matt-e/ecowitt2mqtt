@@ -52,7 +52,7 @@ GLOBBED_ENTITIES = {
         None,
     ),
     DATA_POINT_GLOB_BATT: (
-        COMPONENT_BINARY_SENSOR,
+        COMPONENT_SENSOR,
         None,
         DEVICE_CLASS_BATTERY,
         None,
@@ -219,6 +219,10 @@ class HassDiscovery:  # pylint: disable=too-few-public-methods
             "state_topic": self._get_topic(key, component, "state"),
             "unique_id": f"{self._device.unique_id}_{key}",
         }
+        if self._args.hass_expire_after > 0:
+            self._config_payloads[key]["expire_after"] = self._args.hass_expire_after
+        if self._args.hass_force_update:
+            self._config_payloads[key]["force_update"] = bool(self._args.hass_force_update)
         if device_class:
             self._config_payloads[key]["device_class"] = device_class
         if icon:

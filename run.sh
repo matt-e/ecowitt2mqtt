@@ -35,6 +35,14 @@ if [ -n "${HASS_DISCOVERY_PREFIX}" ]; then
     PARAMS+=(--hass-discovery-prefix="${HASS_DISCOVERY_PREFIX}")
 fi
 
+if [ -n "${HASS_EXPIRE_AFTER}" ]; then
+    PARAMS+=(--hass-expire-after="${HASS_EXPIRE_AFTER}")
+fi
+
+if [ "${HASS_FORCE_UPDATE}" = "true" ]; then
+    PARAMS+=(--hass-force-update)
+fi
+
 if [ -n "${ENDPOINT}" ]; then
     PARAMS+=(--endpoint="${ENDPOINT}")
 fi

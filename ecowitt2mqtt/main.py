@@ -10,6 +10,7 @@ from ecowitt2mqtt.mqtt import async_publish_payload
 DEFAULT_AIOHTTP_ENDPOINT = "/data/report"
 DEFAULT_AIOHTTP_PORT = 8080
 DEFAULT_HASS_DISCOVERY_PREFIX = "homeassistant"
+DEFAULT_HASS_EXPIRE_AFTER = 0
 DEFAULT_LOG_LEVEL_STRING = "INFO"
 DEFAULT_MQTT_PORT = 1883
 
@@ -77,6 +78,23 @@ def get_arguments() -> argparse.Namespace:
         help=(
             "The Home Assistant discovery prefix to use "
             f"(default: {DEFAULT_HASS_DISCOVERY_PREFIX})"
+        ),
+    )
+    parser.add_argument(
+        "--hass-expire-after",
+        default=DEFAULT_HASS_EXPIRE_AFTER,
+        type=int,
+        help=(
+            "How many seconds should Home Assistant wait for new messages before marking the sensor unavailable"
+            f"(default: {DEFAULT_HASS_EXPIRE_AFTER})"
+        ),
+    )
+    parser.add_argument(
+        "--hass-force-update",
+        action="store_const",
+        const=True,
+        help=(
+            "Should Home assistant send update events even if the value hasn’t changed"
         ),
     )
 
